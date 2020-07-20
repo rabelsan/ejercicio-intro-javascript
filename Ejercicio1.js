@@ -75,7 +75,7 @@ function validateRoman (num) {
     // los dígitos del número son correctos y el número Romano está bien formado
  
     if ((typeof (num) !== 'string') || (num.length < 1)) {
-        errorStr += ' - Debe introducir un número Romano.\n'
+        errorStr += ' - Debe introducir un número en formato Romano.\n'
         isOk = false
     } else {
         strNum = String(num).toUpperCase()
@@ -121,7 +121,7 @@ function validateDecimal (num, min=1, max=3999) {
     number = Number(num)
     
     if (isNaN(number)) {
-        errorStr += ' - No es un número.\n'
+        errorStr += ' - No es un número en formato Decimal.\n'
         isOk = false
     }
 
