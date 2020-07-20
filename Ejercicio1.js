@@ -1,17 +1,18 @@
 'use strict';
 
 const { turquoise } = require("color-name");
+const { isNull } = require("util");
 
 /**
 * Converts a well formed Roman number to Decimal format and returns the value.
-* Otherwise, it prints errors to console and returns value (-1)
+* Otherwise, it prints errors to console and returns value 'null'
 * @param {string} romanNum numeral to convert
 */
 function convertRomanToDecimal(romanNum) {
     var valueDec = { I: 1, V: 5, X: 10, L: 50, C: 100, D: 500, M: 1000 }
     var digitPrev = ''
     var valor = 0
-    var resultado = -1
+    var resultado = null
  
     if (validateRoman(romanNum)) {
         resultado = 0
@@ -40,9 +41,10 @@ function convertDecimalToRoman(decNum) {
     var module = 0
     var factor = 1
     var valor = Number(decNum)
-    var resultado = ''
+    var resultado =  null
     
     if (validateDecimal(decNum)) {
+        resultado = ''
         do {
             module = factor < valor ? valor % (10 * factor) : valor
             factor *= 10
@@ -117,6 +119,7 @@ function validateDecimal (num, min=1, max=3999) {
     var errorStr = '\nParámetro incorrecto ('+num+'): \n'
     
     number = Number(num)
+    
     if (isNaN(number)) {
         errorStr += ' - No es un número.\n'
         isOk = false
@@ -126,9 +129,11 @@ function validateDecimal (num, min=1, max=3999) {
         if (number<1 || number>3999) {
             errorStr += ' - Sólo se admiten valores entre ' + min + ' y ' + max + '.\n'
             isOk = false
+        } else if (number != Math.trunc(number)) {
+            errorStr += ' - El número debe ser un entero.\n'
+            isOk = false
         }
     }
-
     if (!isOk) { 
         console.log(errorStr)
     }
@@ -136,27 +141,79 @@ function validateDecimal (num, min=1, max=3999) {
     return isOk
 }
 
+/**
+* Read a file in Synchronous mode and return data read
+* Otherwise, it returns 'undefined' if the reading operation returns errors.
+* @param {string} file File name
+*/
 function readFileSync(file) {
+    let fs = require("fs");
+    console.log(`\nLeyendo archivo "${file}" en modo Síncrono...\n`)
+   let data = fs.readFileSync(file, 'utf8')
+    return data
+}
 
-}
-
+/**
+* Read a file in Asynchronous mode and return data read
+* Otherwise, it returns 'undefined' if the reading operation returns errors.
+* @param {string} file File name
+*/
 function readFileAsync(file) {
+    let fs = require("fs");
+    console.log(`\nLeyendo archivo "${file}" en modo Asíncrono...\n`)
+   fs.readFile(file, 'utf8', (err, data) => {
+        if (err) {
+            console.log(`Error lectura asíncrona "${err.path}": ${err.code} ${err.syscall} (Código: ${err.errno})`)
+        }
+        return data    
+    })
+}
+
+function SaveFile() {
 
 }
 
-console.log(convertRomanToDecimal(5))
+/**
+* Read a file in Synchronous mode, validate data and convert Roman to Decimal numeral and Decimal to Roman
+* Data in wrong format (neither Roman nor Decimal), are refused
+* Numbers converted succesfully are save in the output file
+* @param {string} file Input file name
+* @param {string} file Output file name
+*/
+function decRomanFileSyncConverter (fileIn, fileOut) {
+    let data = readFileSync(fileIn)
+    var arrData = []
+    var result = null
+
+    if (typeof data !== 'undefined') {
+        arrData = data.split('\n');
+        console.log(arrData)
+        for (var i = 0; i < arrData.length; i++) {
+            result = isNaN(arrData[i]) ? convertRomanToDecimal(arrData[i]) : convertDecimalToRoman(arrData[i])    
+            if (isNull(result)) {
+                console.log(`Valor descartado: ${arrData[i]}`) 
+            } else {
+                //grabamos el fichero
+            }
+        }    
+    }
+}
+
+/* console.log(convertRomanToDecimal(5))
 console.log(convertRomanToDecimal('MCMXAIIZI'))
 console.log(convertRomanToDecimal('MCMMMMLLXIAII'))
-
-console.log(convertRomanToDecimal('MCMLXX'))
-
+console.log(convertRomanToDecimal('MMMCMLXX'))
 console.log(convertDecimalToRoman(2431))
 console.log(convertDecimalToRoman(2003))
 console.log(convertDecimalToRoman(3060))
 console.log(convertDecimalToRoman(401))
+
 console.log(convertDecimalToRoman(18))
 console.log(convertDecimalToRoman(9))
 console.log(convertDecimalToRoman('j'))
 console.log(convertDecimalToRoman(2e20))
+readFileSync('ficheroDatos.txt')
+readFileAsync('ficheroDatos.txt')
+ */
 
- 
+ decRomanFileSyncConverter('ficheroDatos.txt','resultado.txt')
