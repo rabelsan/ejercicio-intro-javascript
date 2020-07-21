@@ -36,7 +36,7 @@ function deckOfPokerCards (suits, values) {
                     })
                 }
             }
-        },
+        }, 
 
         getHandCards: () => {
             return handCards
