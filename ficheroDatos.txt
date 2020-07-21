@@ -18,7 +18,7 @@ MCMLXXIII
 12x
 25.30
 null
-undefined
+MMXX
 -1456
 3123
 $

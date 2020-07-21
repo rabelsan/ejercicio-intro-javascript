@@ -25,13 +25,16 @@ Se han definido las siguientes funciones:
 
 - saveFile(file): Guarda la conversión de los datos de entrada válidos en un fichero de salida (resultado.txt)
 
-- decRomanFileSyncConverter (fileIn, fileOut): Función que lee un fichero de entrada en modo **síncrono**, convierte los valores correctos de Decimal a Romano y de Romano a Decimal, y los guarda en un fichero de salida
+- **decRomanFileSyncConverter (fileIn, fileOut)**: Función que lee un fichero de entrada en modo **síncrono**, convierte los valores correctos de Decimal a Romano y de Romano a Decimal, y los guarda en un fichero de salida
 
-- decRomanFileAsyncConverter (fileIn, fileOut): Función que lee un fichero de entrada en modo **asíncrono**, convierte los valores correctos de Decimal a Romano y de Romano a Decimal, y los guarda en un fichero de salida
+- **decRomanFileAsyncConverter (fileIn, fileOut)**: Función que lee un fichero de entrada en modo **asíncrono**, convierte los valores correctos de Decimal a Romano y de Romano a Decimal, y los guarda en un fichero de salida
 
 - saveFile(fileOut, data): Guarda los datos convertidos en el fichero de salida definido en el primer parámatros
 
+
 ## Ejercicio 2 Partida Poker
+
+
 
 
 Ramón Beltrán Sánchez

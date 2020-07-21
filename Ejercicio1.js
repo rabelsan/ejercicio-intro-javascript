@@ -175,11 +175,11 @@ function readFileAsync(file) {
 function saveFile(fileOut, data) {
     let fs = require('fs');
 
-    fs.writeFile(file, data, (error, data) => {
+    fs.writeFile(fileOut, data, (error) => {
         if (error) {
             console.log(`Error lectura asíncrona "${error.path}": ${error.code} ${error.syscall} (Código: ${error.errno})`)
         } else {
-            console.log(`¡Resultados guardados en fichero "${fileOut}"!`);
+            console.log(`\n¡Resultados guardados en fichero "${fileOut}"!\n`);
         }    
     });
 }
@@ -193,22 +193,23 @@ function saveFile(fileOut, data) {
 */
 function decRomanFileSyncConverter (fileIn, fileOut) {
     let data = readFileSync(fileIn)
-    var arrData = []
-    var result = []
+    let arrData = []
+    let result = null
+    let arrResult = []
 
     if (typeof data !== 'undefined') {
         arrData = data.split('\n');
         
         for (var i = 0; i < arrData.length; i++) {
             result = isNaN(arrData[i]) ? convertRomanToDecimal(arrData[i]) : convertDecimalToRoman(arrData[i])    
-            if (isNull(result)) {
+            if (!result) {
                 console.log(`Valor descartado: ${arrData[i]}`) 
             } else {
-               result.push(arrData[i])
+               arrResult.push(result)
             }
         } 
-        if (result.length>0) {   
-            saveFile('resultado.txt', result)
+        if (arrResult.length>0) {   
+            saveFile('resultado.txt', arrResult.join('\n'))
         }
     }
 }
@@ -223,47 +224,38 @@ function decRomanFileSyncConverter (fileIn, fileOut) {
 function decRomanFileAsyncConverter (fileIn, fileOut) {
     readFileAsync(fileIn)
     .then (data => {
-        var arrData = []
-        var result = []
+        try {
+            let arrData = []
+            let result = null
+            let arrResult = []
         
-        if (typeof data !== 'undefined') {
-            arrData = data.split('\n');
+            if (typeof data !== 'undefined') {
+                arrData = data.split('\n');
             
-            for (var i = 0; i < arrData.length; i++) {
-                result = isNaN(arrData[i]) ? convertRomanToDecimal(arrData[i]) : convertDecimalToRoman(arrData[i])    
-                if (isNull(result)) {
-                    console.log(`Valor descartado: ${arrData[i]}`) 
-                } else {
-                    result.push(arrData[i])
-                }
-            } 
-            if (result.length>0) {   
-                saveFile('resultado.txt', result)
-            }   
-        }
+                for (var i = 0; i < arrData.length; i++) {
+                    result = isNaN(arrData[i]) ? convertRomanToDecimal(arrData[i]) : convertDecimalToRoman(arrData[i])    
+                    if (!result) {
+                        console.log(`Valor descartado: ${arrData[i]}`) 
+                    } else {
+                        arrResult.push(result)
+                    }
+                } 
+                if (arrResult.length>0) {   
+                    saveFile('resultado.txt', arrResult.join('\n'))
+                }  
+            }     
+        } catch (err) {
+            console.log(err)
+        } 
     })
     .catch (error => {
         console.log(`Error lectura asíncrona "${error.path}": ${error.code} ${error.syscall} (Código: ${error.errno})`)
     })
 }
 
-/* console.log(convertRomanToDecimal(5))
-console.log(convertRomanToDecimal('MCMXAIIZI'))
-console.log(convertRomanToDecimal('MCMMMMLLXIAII'))
-console.log(convertRomanToDecimal('MMMCMLXX'))
-console.log(convertDecimalToRoman(2431))
-console.log(convertDecimalToRoman(2003))
-console.log(convertDecimalToRoman(3060))
-console.log(convertDecimalToRoman(401))
 
-console.log(convertDecimalToRoman(18))
-console.log(convertDecimalToRoman(9))
-console.log(convertDecimalToRoman('j'))
-console.log(convertDecimalToRoman(2e20))
-readFileSync('ficheroDatos.txt')
-readFileAsync('ficheroDatos.txt')
- */
-
+// Ejecutar este método para probar la lectura síncrono 
 //decRomanFileSyncConverter('ficheroDatos.txt','resultado.txt')
 
+// Ejecutar este método para probar la lectura asíncrona
 decRomanFileAsyncConverter('ficheroDatos.txt','resultado.txt')
