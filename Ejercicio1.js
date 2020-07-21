@@ -71,9 +71,6 @@ function validateRoman (num) {
     var strNum = ''
     var isOk = true
 
-    // Validamos si el parámetro de entrada es un string con contenido,
-    // los dígitos del número son correctos y el número Romano está bien formado
- 
     if ((typeof (num) !== 'string') || (num.length < 1)) {
         errorStr += ' - Debe introducir un número en formato Romano.\n'
         isOk = false
@@ -159,13 +156,16 @@ function readFileSync(file) {
 * @param {string} file File name
 */
 function readFileAsync(file) {
-    let fs = require("fs");
-    console.log(`\nLeyendo archivo "${file}" en modo Asíncrono...\n`)
-   fs.readFile(file, 'utf8', (err, data) => {
-        if (err) {
-            console.log(`Error lectura asíncrona "${err.path}": ${err.code} ${err.syscall} (Código: ${err.errno})`)
-        }
-        return data    
+    return new Promise( (resolve, reject) => {
+        let fs = require("fs");
+        console.log(`\nLeyendo archivo "${file}" en modo Asíncrono...\n`)
+       fs.readFile(file, 'utf8', (error, data) => {
+            if (error) {
+                reject(error)
+            } else {
+                resolve(data)    
+            }
+        })
     })
 }
 
@@ -175,7 +175,7 @@ function SaveFile() {
 
 /**
 * Read a file in Synchronous mode, validate data and convert Roman to Decimal numeral and Decimal to Roman
-* Data in wrong format (neither Roman nor Decimal), are refused
+* Data in wrong format (neither Roman nor Decimal numerals), are refused
 * Numbers converted succesfully are save in the output file
 * @param {string} file Input file name
 * @param {string} file Output file name
@@ -187,7 +187,7 @@ function decRomanFileSyncConverter (fileIn, fileOut) {
 
     if (typeof data !== 'undefined') {
         arrData = data.split('\n');
-        console.log(arrData)
+        
         for (var i = 0; i < arrData.length; i++) {
             result = isNaN(arrData[i]) ? convertRomanToDecimal(arrData[i]) : convertDecimalToRoman(arrData[i])    
             if (isNull(result)) {
@@ -197,6 +197,37 @@ function decRomanFileSyncConverter (fileIn, fileOut) {
             }
         }    
     }
+}
+
+/**
+* Read a file in Asynchronous mode, validate data and convert Roman to Decimal numeral and Decimal to Roman
+* Data in wrong format (neither Roman nor Decimal numerals), are refused
+* Numbers converted succesfully are save in the output file
+* @param {string} file Input file name
+* @param {string} file Output file name
+*/
+function decRomanFileAsyncConverter (fileIn, fileOut) {
+    readFileAsync(fileIn)
+    .then (data => {
+        var arrData = []
+        var result = null
+        
+        if (typeof data !== 'undefined') {
+            arrData = data.split('\n');
+        
+            for (var i = 0; i < arrData.length; i++) {
+                result = isNaN(arrData[i]) ? convertRomanToDecimal(arrData[i]) : convertDecimalToRoman(arrData[i])    
+                if (isNull(result)) {
+                    console.log(`Valor descartado: ${arrData[i]}`) 
+                } else {
+                    //grabamos el fichero
+                }
+            }    
+        }
+    })
+    .catch (error => {
+        console.log(`Error lectura asíncrona "${error.path}": ${error.code} ${error.syscall} (Código: ${error.errno})`)
+    })
 }
 
 /* console.log(convertRomanToDecimal(5))
@@ -216,4 +247,6 @@ readFileSync('ficheroDatos.txt')
 readFileAsync('ficheroDatos.txt')
  */
 
- decRomanFileSyncConverter('ficheroDatos.txt','resultado.txt')
+//decRomanFileSyncConverter('ficheroDatos.txt','resultado.txt')
+
+decRomanFileAsyncConverter('ficheroDatos.txt','resultado.txt')
