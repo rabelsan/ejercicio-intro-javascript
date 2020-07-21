@@ -1,8 +1,5 @@
 'use strict';
 
-const { turquoise } = require("color-name");
-const { isNull } = require("util");
-
 /**
 * Converts a well formed Roman number to Decimal format and returns the value.
 * Otherwise, it prints errors to console and returns value 'null'
@@ -169,8 +166,22 @@ function readFileAsync(file) {
     })
 }
 
-function SaveFile() {
+/**
+* Create/replace the content of a file in Asynchronous mode (writeFile())
+* Otherwise, it returns 'undefined' if the reading operation returns errors.
+* @param {string} file File name
+* @param {string} data Data to be saved
+*/
+function saveFile(fileOut, data) {
+    let fs = require('fs');
 
+    fs.writeFile(file, data, (error, data) => {
+        if (error) {
+            console.log(`Error lectura asíncrona "${error.path}": ${error.code} ${error.syscall} (Código: ${error.errno})`)
+        } else {
+            console.log(`¡Resultados guardados en fichero "${fileOut}"!`);
+        }    
+    });
 }
 
 /**
@@ -183,7 +194,7 @@ function SaveFile() {
 function decRomanFileSyncConverter (fileIn, fileOut) {
     let data = readFileSync(fileIn)
     var arrData = []
-    var result = null
+    var result = []
 
     if (typeof data !== 'undefined') {
         arrData = data.split('\n');
@@ -193,9 +204,12 @@ function decRomanFileSyncConverter (fileIn, fileOut) {
             if (isNull(result)) {
                 console.log(`Valor descartado: ${arrData[i]}`) 
             } else {
-                //grabamos el fichero
+               result.push(arrData[i])
             }
-        }    
+        } 
+        if (result.length>0) {   
+            saveFile('resultado.txt', result)
+        }
     }
 }
 
@@ -210,19 +224,22 @@ function decRomanFileAsyncConverter (fileIn, fileOut) {
     readFileAsync(fileIn)
     .then (data => {
         var arrData = []
-        var result = null
+        var result = []
         
         if (typeof data !== 'undefined') {
             arrData = data.split('\n');
-        
+            
             for (var i = 0; i < arrData.length; i++) {
                 result = isNaN(arrData[i]) ? convertRomanToDecimal(arrData[i]) : convertDecimalToRoman(arrData[i])    
                 if (isNull(result)) {
                     console.log(`Valor descartado: ${arrData[i]}`) 
                 } else {
-                    //grabamos el fichero
+                    result.push(arrData[i])
                 }
-            }    
+            } 
+            if (result.length>0) {   
+                saveFile('resultado.txt', result)
+            }   
         }
     })
     .catch (error => {
