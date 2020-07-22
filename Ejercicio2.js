@@ -1,28 +1,68 @@
 'use strict';
 
 /**
-* Deals poker cards randomly for two players and, based on the dealed cards, decides who is the winner.
-*/ 
-
+* Class to define all possible suits of the cards
+*/
 class Suits {
     constructor () {
-        this.suits = {'S': 'spades','H': 'hearts','C': 'clubs', 'D':'diamonds'}
+        this.suits = {S: 'spades', H: 'hearts', C: 'clubs', D:'diamonds'}
         this.getSuits = () => {
             return this.suits    
         } 
+        this.getSuit = (prop) => {
+            return this.suits[prop]
+        }
     }
 }
 
+/**
+* Class to define all possible values of the cards
+*/
 class Values {
     constructor () {
-        this.values = {'A': 'As', '2': '2', '3': '3', '4': '4', '5': '5', '6': '6', '7':'7', '8': '8', '9': '9', 'T': 'Ten',
-                       'J': 'Jack', 'Q': 'Queen', 'K': 'King'}
+        this.values = {2: 2, 3: 3, 4: 4, 5: 5, 6: 6, 7:7, 8: 8, 9: 9, T: 10,
+                       J: 11, Q: 12, K: 13, A: 14}
         this.getValues = () => {
             return this.values
         } 
+        this.getValue = (prop) => {
+            return this.values[prop]
+        }
     }
 }
 
+/**
+* Class to define the game rules
+*/
+class Rules {
+    constructor () {
+        this.rules = [{result: 'Straight Flash', consecutive: 5, equal1: 0, equal2: 0, color: true, value: 8, weight: 0},
+                   {result: 'Poker', consecutive: 0, equal1: 4, equal2: 0, color: false, value: 7, weight: 0},
+                   {result: 'Full', consecutive: 0, equal1: 2, equal2: 3, color: false, value: 6, weight: 0},
+                   {result: 'Flush', consecutive: 5, equal1: 0, equal2: 0, color: false, value: 5, weight: 0},
+                   {result: 'Three of a kind', consecutive: 0, equal1: 3, equal2: 0, color: false, value: 4, weight: 0},
+                   {result: 'Two pairs', consecutive: 0, equal1: 2, equal2: 2, color: false, value: 3, weight: 0},
+                   {result: 'Pair', consecutive:0, equal1: 2, equal2: 0, color: false, value: 2, weight: 0},
+                   {result: 'High Card', consecutive:0, equal1: 0,equal2: 0, color: false, value: 1, weight: 0}]
+                   
+        this.getRules = () => {
+            return this.rules
+        } 
+        this.getRule = (prop) => {
+            return this.rules[prop]
+        }
+        this.setWeight = (pos, weight) => {
+            this.rules[pos].weight = weight
+        }
+    }
+}
+
+
+/**
+* Generates a new deck of poker cards
+* @param {Object} object of class Suits
+* @param {Object} object of class Values
+*/
 function deckOfPokerCards (suits, values) {
     let handCards = 5
     let cards = []
@@ -54,6 +94,10 @@ function deckOfPokerCards (suits, values) {
     }
 }
 
+/**
+* Deals a hand of poker cards for a player
+* @param {Object} object of type deckOfPokerCards
+*/
 function dealHandOfPoker (pokerCards) {
     let hand = []
 
@@ -65,39 +109,123 @@ function dealHandOfPoker (pokerCards) {
             do {
                 card = Math.floor(Math.random() * Math.floor(deckOfPokerCards.length))
                 if (hand.indexOf(deckOfPokerCards[card]) === -1) {
+                    /* add a new card to the player hand... */
                     hand.push(deckOfPokerCards[card])
+                    /* ... and remove it from the deck */
+                    deckOfPokerCards.splice(card, 1)
                     numCards ++
                 }
-            } while (numCards<pokerCards.getHandCards())
+            } while ((numCards<pokerCards.getHandCards()) || (deckOfPokerCards.lenght<1))
+        },
+
+        getHand: () => {
+            return hand
         },
 
         showHand: () => {
-            console.log (hand)
+            console.log(hand)
         }
     }
 }
 
-let suits = new Suits()
-//suits.getSuits()
+/**
+* Create/append the content of a file in Asynchronous mode (writeFile())
+* Otherwise, it returns 'undefined' if the reading operation returns errors.
+* @param {Object} object dealHandOfPoker
+*/
+function getScorePlayer(playerHand) {
 
-let values = new Values()
-//values.getValues()
-const pokerCards = deckOfPokerCards(suits, values)
-pokerCards.generateDeckOfCards()
-//pokerCards.showDeck()
-
-const player1 = dealHandOfPoker(pokerCards)
-player1.dealHand()
-player1.showHand()
-
-const player2 = dealHandOfPoker(pokerCards)
-player2.dealHand()
-player2.showHand()
-
-
-function randomPokerHand() {
+    let hand = []
+    let values = new Values()
+    let rules = new Rules()
+    let sumEqualValues = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+    let weight = 0
+    let consecutive = 0
+    let equal1 = 0
+    let equal2 = 0
+    let color = true
+    let result = ''
     
-    return resultado
+    hand = playerHand.getHand()
+    for (var i=0; i<hand.length; i++) {
+        sumEqualValues[values.getValue([hand[i].keyV])]++
+        weight += values.getValue([hand[i].keyV])
+        if ((i>0) && (hand[i-1].keyS !== hand[i].keyS)) {
+            color = false
+        } 
+    }
+    //check consecutives
+    for (var i=0; i<sumEqualValues.length; i++) {
+        switch (sumEqualValues[i]) {
+            case 1:
+                consecutive = (i===0) ? 1 : ((sumEqualValues[i-1])===1) ? ++consecutive : 1
+                break
+            case 2:
+            case 3:
+            case 4:
+                (equal1 === 0) ? equal1=sumEqualValues[i] : equal2=sumEqualValues[i]
+        }
+    }
+    
+    for (var i=0; i<rules.getRules().length; i++) {
+        if (((rules.getRule(i).consecutive === consecutive) && (rules.getRule(i).color === color)) ||
+            ((rules.getRule(i).equal1 === equal1) && (rules.getRule(i).equal2 === equal2))) {
+            rules.setWeight(i, weight)   
+            result=rules.getRule(i)
+        }
+    }
+    return result
 }
 
-//console.log(randomPokerHand())
+/**
+* Create/append the content of a file in Asynchronous mode (writeFile())
+* Otherwise, it returns 'undefined' if the reading operation returns errors.
+* @param {string} file File name
+* @param {string} data Data to be saved
+*/
+function saveFile(fileOut, data) {
+    let fs = require('fs');
+
+    fs.appendFile(fileOut, data, (error) => {
+        if (error) {
+            console.log(`Error lectura asíncrona "${error.path}": ${error.code} ${error.syscall} (Código: ${error.errno})`)
+        } else {
+            console.log(`\n¡Partida guardada en fichero "${fileOut}"!\n`);
+        }    
+    });
+}
+
+/**
+* Deals poker cards randomly for two players and, based on the dealed cards, decides who is the winner.
+*/ 
+function playGame() {
+
+    let scorePlayer1 = []
+    let scorePlayer2 = []
+
+    let suits = new Suits()
+    //suits.getSuits()
+    let values = new Values()
+    //values.getValues()
+
+    /* generate a new deck of pocker cards */
+    const pokerCards = deckOfPokerCards(suits, values)
+    pokerCards.generateDeckOfCards()
+    //pokerCards.showDeck()
+
+    /* deal cards to players */
+    const player1 = dealHandOfPoker(pokerCards)
+    player1.dealHand()
+    player1.showHand()
+    const player2 = dealHandOfPoker(pokerCards)
+    player2.dealHand()
+    player2.showHand()
+    //pokerCards.showDeck()
+
+    scorePlayer1 = getScorePlayer(player1)
+    console.log(scorePlayer1)
+    scorePlayer2 = getScorePlayer(player2)
+    console.log(scorePlayer2)
+}
+
+console.log(playGame());
