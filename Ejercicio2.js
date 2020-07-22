@@ -291,4 +291,5 @@ function playGame() {
 
 }
 
-console.log(playGame());
+//play game
+console.log(playGame())

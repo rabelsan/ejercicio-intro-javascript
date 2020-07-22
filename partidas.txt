@@ -1,100 +1,14 @@
-Entrada: Jugador 1: 3C 5H 7S 7H TS   Jugador 2: 5S 4D QH 2H 6H
+Entrada: Jugador 1: KC 7H 8D 8S 6C   Jugador 2: 3D 2D TC QD QS
+Salida: Jugador 2 gana, Pair
+Entrada: Jugador 1: 7D KH QD JS 3D   Jugador 2: QC AC 8H KS TS
+Salida: Jugador 2 gana, High Card
+Entrada: Jugador 1: 7D 5H QH 3C 7C   Jugador 2: 3S 2H 2C 4D AS
 Salida: Jugador 1 gana, Pair
-Entrada: Jugador 1: TC 4C KC 7C JS   Jugador 2: 3H KD 2C AH 3S
+Entrada: Jugador 1: 7D 8H 5H KH KS   Jugador 2: 8C 6H 4H KC 7H
+Salida: Jugador 1 gana, Pair
+Entrada: Jugador 1: JD 7D 8S QS 4D   Jugador 2: JH 7S 2C QH QC
 Salida: Jugador 2 gana, Pair
-Entrada: Jugador 1: AS 8C 6H 6C 8S   Jugador 2: 3C 7D 2H AH TC
-Salida: Jugador 1 gana, Two pairs
-Entrada: Jugador 1: KD 4H 2S 8C 4C   Jugador 2: 6S 2D 6D KH QS
-Salida: Jugador 2 gana, Pair
-Entrada: Jugador 1: 4H QS JD 7H KD   Jugador 2: JC 9H 4C 9S 7S
-Salida: Jugador 2 gana, Pair
-Entrada: Jugador 1: 7C JC AH TS 3S   Jugador 2: QS 7H 5S 4H 4D
-Salida: Jugador 2 gana, Pair
-Entrada: Jugador 1: AC JH 5D AS 5C   Jugador 2: TH AD 4D 5H 5S
-Salida: Jugador 1 gana, Two pairs
-Entrada: Jugador 1: KS 4S TS 7H 7D   Jugador 2: 5S JH 5H JS KD
+Entrada: Jugador 1: AD JC AH 5D TC   Jugador 2: 3D 8H 8S 3C KS
 Salida: Jugador 2 gana, Two pairs
-Entrada: Jugador 1: 3S 7D QH 4S 4C   Jugador 2: TH 9S AD KS 4H
-Salida: Jugador 1 gana, Pair
-Entrada: Jugador 1: JH 5D 2D 3C 9D   Jugador 2: 8D 7S 4C QH 6H
-Salida: Jugador 2 gana, High Card
-Entrada: Jugador 1: 6C 5C KH 6H QS   Jugador 2: 2C 9H 7S KS AC
-Salida: Jugador 1 gana, Pair
-Entrada: Jugador 1: 9H 3D 9C 4D KH   Jugador 2: 7C 6S AS 3H AD
-Salida: Jugador 2 gana, Pair
-Entrada: Jugador 1: 5S 3H 3C 4S JH   Jugador 2: 2D 6D KH TD KS
-Salida: Jugador 2 gana, Pair
-Entrada: Jugador 1: 5C 3D AH TC 3H   Jugador 2: 5H JC 7H 7C QD
-Salida: Jugador 2 gana, Pair
-Entrada: Jugador 1: 3C 6C KC 5S JC   Jugador 2: 8S JD 8H 7H 3S
-Salida: Jugador 2 gana, Pair
-Entrada: Jugador 1: 4D 8H 9H TS 6D   Jugador 2: 5H QC TD 7D KH
-Salida: Jugador 2 gana, High Card
-Entrada: Jugador 1: 4S KS 6H AH 6S   Jugador 2: TH 5D TD 8D 3C
-Salida: Jugador 2 gana, Pair
-Entrada: Jugador 1: 8C 3H 2D 9S TC   Jugador 2: 9H 5S 8H AD KH
-Salida: Jugador 2 gana, High Card
-Entrada: Jugador 1: 3H 8C QD 6C 6H   Jugador 2: TC AC 5C JC AH
-Salida: Jugador 2 gana, Pair
-Entrada: Jugador 1: KD KC 5D TC 7H   Jugador 2: QC 8D 2S TS 9H
-Salida: Jugador 1 gana, Pair
-Entrada: Jugador 1: KS 9H 9S JC QD   Jugador 2: KD 2S AS QH 3S
-Salida: Jugador 1 gana, Pair
-Entrada: Jugador 1: 5H 4H 8C 7C 5S   Jugador 2: 9H 9D 3C JD AH
-Salida: Jugador 2 gana, Pair
-Entrada: Jugador 1: 8D 4S 4C 7C QS   Jugador 2: 7S 9S 2D TD 8S
-Salida: Jugador 1 gana, Pair
-Entrada: Jugador 1: 4S KH 6S 3D KD   Jugador 2: 4C 9H 3S KC 7H
-Salida: Jugador 1 gana, Pair
-Entrada: Jugador 1: 4S TD 6D 7D JH   Jugador 2: AC 7C QC AD TC
-Salida: Jugador 2 gana, Pair
-Entrada: Jugador 1: 9H JH 7S 8C 3D   Jugador 2: TS 7D 4D JS 5C
-Salida: Jugador 2 gana, High Card
-Entrada: Jugador 1: AS AC 5H QS 6D   Jugador 2: 7H KC 7D 2S 5C
-Salida: Jugador 1 gana, Pair
-Entrada: Jugador 1: TS JD 6S KC QS   Jugador 2: 8C 9S 9C 3C AD
-Salida: Jugador 2 gana, Pair
-Entrada: Jugador 1: 8C 6D 5H 4S 6H   Jugador 2: JC 3C 2H 9S 2D
-Salida: Jugador 1 gana, Pair
-Entrada: Jugador 1: 5S 4S TC 2C JD   Jugador 2: 8H 8D 7D 2S 2D
-Salida: Jugador 2 gana, Two pairs
-Entrada: Jugador 1: QH 9C AD 4C 5H   Jugador 2: 7C 6C KD 4H QS
-Salida: Jugador 1 gana, High Card
-Entrada: Jugador 1: TC 3D KC 9H TD   Jugador 2: 9D 5C 8H KD JH
-Salida: Jugador 1 gana, Pair
-Entrada: Jugador 1: 2D 8S 4H JD TH   Jugador 2: 9C 9D JC JH 7C
-Salida: Jugador 2 gana, Two pairs
-Entrada: Jugador 1: 5D 4D 9D 8D 4S   Jugador 2: AC 7S 9C 4H 2D
-Salida: Jugador 1 gana, Pair
-Entrada: Jugador 1: 8C 6C 2S KD 2D   Jugador 2: 5H 7D KS 4S 8D
-Salida: Jugador 1 gana, Pair
-Entrada: Jugador 1: TH QS 7C 7D 9D   Jugador 2: 3H 6H TS 8S AD
-Salida: Jugador 1 gana, Pair
-Entrada: Jugador 1: KH QS JD KD AS   Jugador 2: KC 8C 2H 9D 9H
-Salida: Jugador 1 gana, Pair
-Entrada: Jugador 1: JH 2H 2D TS 4D   Jugador 2: TC JD 6H JC KS
-Salida: Jugador 2 gana, Pair
-Entrada: Jugador 1: 3H 7S 3D KS AC   Jugador 2: 2C 5C 4C KH 4S
-Salida: Jugador 2 gana, Pair
-Entrada: Jugador 1: 6D AC KC 6S 6H   Jugador 2: KH JD 8H 3S JC
-Salida: Jugador 1 gana, Three of a kind
-Entrada: Jugador 1: 8D 8C 3S 6S 2S   Jugador 2: 9S QD 8S TD AH
-Salida: Jugador 1 gana, Pair
-Entrada: Jugador 1: 8D 9C QC 2C 2H   Jugador 2: 4S 9D 2S 6D TS
-Salida: Jugador 1 gana, Pair
-Entrada: Jugador 1: 4C 9H QS 5D 2H   Jugador 2: 9S 9D KC 8S 6D
-Salida: Jugador 2 gana, Pair
-Entrada: Jugador 1: AD 5S 5H 7H 7S   Jugador 2: KC 3S JD 4S JS
-Salida: Jugador 1 gana, Two pairs
-Entrada: Jugador 1: 6C 2D 6S 2C AH   Jugador 2: 7S 4C JH 3S 6H
-Salida: Jugador 1 gana, Two pairs
-Entrada: Jugador 1: 3H QD QC 7C 2H   Jugador 2: TD 3C 8H AD 2S
-Salida: Jugador 1 gana, Pair
-Entrada: Jugador 1: 9D 2C 8D 7D 8S   Jugador 2: AH QS 8C TS 4D
-Salida: Jugador 1 gana, Pair
-Entrada: Jugador 1: QS 7C 9D 9H 4H   Jugador 2: 3S 3C JD 5S 7S
-Salida: Jugador 1 gana, Pair
-Entrada: Jugador 1: JD 5H 4S QC 2H   Jugador 2: JH 8D 5C TC KD
-Salida: Jugador 2 gana, High Card
-Entrada: Jugador 1: 9C QS 3H 9S 5S   Jugador 2: KS QD 6D 4C TS
+Entrada: Jugador 1: 6C JH 6D 7S 5D   Jugador 2: QD 8C 3H 3D 9H
 Salida: Jugador 1 gana, Pair
