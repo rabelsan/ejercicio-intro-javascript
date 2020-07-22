@@ -110,24 +110,28 @@ function dealHandOfPoker (pokerCards) {
             let deckOfPokerCards = pokerCards.getCards()
             do {
                 card = Math.floor(Math.random() * Math.floor(deckOfPokerCards.length))
-                /* add a new card to the player hand... */
+                // add a new card to the player hand... 
                 hand.push(deckOfPokerCards[card])
-                /* ... and remove it from the deck */
+                // ... and remove it from the deck 
                 deckOfPokerCards.splice(card, 1)
                 numCards ++
             } while ((numCards<pokerCards.getHandCards()) || (deckOfPokerCards.lenght<1))
+        },
+
+        getCard: (pos) => {
+            return hand[pos].keyV + hand[pos].keyS
         },
 
         getHand: () => {
             return hand
         },
 
-        showHand: () => {
+        getHandFormatted: () => {
             let cards = '';
             for (var i=0; i<hand.length; i++) {
-                cards += ' ' + hand[i].keyV + hand[i].keyS
+                cards += ' ' + hand[i].keyV + hand[i].keyS 
             }
-            console.log(cards)
+            return cards
         }
     }
 }
@@ -142,8 +146,8 @@ function getScorePlayer(playerHand) {
     let hand = []
     let values = new Values()
     let rules = new Rules()
-    let countEqualCards = [] 
-    let sumEqualCards =  [] 
+    let countEqualCards = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0] 
+    let sumEqualCards =   [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0] 
     let cardsWeight = []
     let consecutive = 0
     let equal1 = 0
@@ -154,10 +158,6 @@ function getScorePlayer(playerHand) {
     let result = ''
     
     //group cards with the same value and get cards' weight based on its values
-    for (var i=0; i<values.getValues().lenght; i++) {
-        countEqualCards[i] = 0
-        sumEqualCards [i] = 0
-    }
     hand = playerHand.getHand()
     for (var i=0; i<hand.length; i++) {
         countEqualCards[values.getValue(hand[i].keyV)]++
@@ -184,7 +184,7 @@ function getScorePlayer(playerHand) {
                     equal1 = countEqualCards[i] 
                     equal1Weight = sumEqualCards[i] 
                 } else {
-                     equal2=countEqualCards[i]
+                     equal2 = countEqualCards[i]
                      equal2Weight = sumEqualCards[i]
                 }
         }
@@ -195,7 +195,7 @@ function getScorePlayer(playerHand) {
         if (((rules.getRule(i).consecutive === consecutive) && (rules.getRule(i).color === color)) ||
             ((rules.getRule(i).equal1 === equal1) && (rules.getRule(i).equal2 === equal2))) {
             rules.setCardsWeight(i, equal1Weight, equal2Weight, cardsWeight)   
-            result=rules.getRule(i)
+            result = rules.getRule(i)
         }
     }
     return result
@@ -226,7 +226,8 @@ function playGame() {
 
     let scorePlayer1 = []
     let scorePlayer2 = []
-
+    let winner = 0
+    let result = ''
     let suits = new Suits()
     //suits.getSuits()
     let values = new Values()
@@ -240,16 +241,54 @@ function playGame() {
     /* deal cards to players */
     const player1 = dealHandOfPoker(pokerCards)
     player1.dealHand()
-    player1.showHand()
+    
     const player2 = dealHandOfPoker(pokerCards)
     player2.dealHand()
-    player2.showHand()
-    //pokerCards.showDeck()
-
+    
+    //get the results
     scorePlayer1 = getScorePlayer(player1)
-    console.log(scorePlayer1)
     scorePlayer2 = getScorePlayer(player2)
-    console.log(scorePlayer2)
+
+    result = `Entrada: Jugador 1:${player1.getHandFormatted()}   Jugador 2:${player2.getHandFormatted()}\n`
+    
+    //check the winner
+    if (scorePlayer1.value > scorePlayer2.value) {
+        winner = 1
+    } else if (scorePlayer1.value < scorePlayer2.value) {
+        winner = 2
+    } else {
+        if ((scorePlayer1.equal1Weight+scorePlayer1.equal2Weight) > (scorePlayer2.equal1Weight+scorePlayer2.equal2Weight)) {
+            winner = 1
+        } else if ((scorePlayer1.equal1Weight+scorePlayer1.equal2Weight) < (scorePlayer2.equal1Weight+scorePlayer2.equal2Weight)) {
+            winner = 2
+        } else {
+            let cont = 0
+            do {
+                if (scorePlayer1.cardsWeight[cont] > scorePlayer2.cardsWeight[cont]) {
+                    winner = 1
+                } else if (scorePlayer1.cardsWeight[cont] < scorePlayer2.cardsWeight[cont]) {
+                    winner = 2
+                }
+                cont++
+            } while ((winner == 0) || (cont < pokerCards.numCards))
+        }
+    }
+
+    switch (winner) {
+        case 0:
+            result += `Salida: Empate\n`
+            break
+        case 1:
+            result += `Salida: Jugador 1 gana, ${scorePlayer1.result}\n`
+            break
+        case 2:
+            result += `Salida: Jugador 2 gana, ${scorePlayer2.result}\n`
+    }
+    
+    // save the result and exit
+    saveFile('partidas.txt', result)
+    return result
+
 }
 
 console.log(playGame());
