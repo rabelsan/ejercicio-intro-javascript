@@ -36,14 +36,14 @@ class Values {
 */
 class Rules {
     constructor () {
-        this.rules = [{result: 'Straight Flash', consecutive: 5, equal1: 0, equal2: 0, color: true, value: 8, weight: 0},
-                   {result: 'Poker', consecutive: 0, equal1: 4, equal2: 0, color: false, value: 7, weight: 0},
-                   {result: 'Full', consecutive: 0, equal1: 2, equal2: 3, color: false, value: 6, weight: 0},
-                   {result: 'Flush', consecutive: 5, equal1: 0, equal2: 0, color: false, value: 5, weight: 0},
-                   {result: 'Three of a kind', consecutive: 0, equal1: 3, equal2: 0, color: false, value: 4, weight: 0},
-                   {result: 'Two pairs', consecutive: 0, equal1: 2, equal2: 2, color: false, value: 3, weight: 0},
-                   {result: 'Pair', consecutive:0, equal1: 2, equal2: 0, color: false, value: 2, weight: 0},
-                   {result: 'High Card', consecutive:0, equal1: 0,equal2: 0, color: false, value: 1, weight: 0}]
+        this.rules = [{result: 'Straight Flash', consecutive: 5, equal1: 0, equal2: 0, color: true, value: 8},
+                      {result: 'Poker', consecutive: 0, equal1: 4, equal2: 0, color: false, value: 7},
+                      {result: 'Full', consecutive: 0, equal1: 2, equal2: 3, color: false, value: 6},
+                      {result: 'Flush', consecutive: 5, equal1: 0, equal2: 0, color: false, value: 5},
+                      {result: 'Three of a kind', consecutive: 0, equal1: 3, equal2: 0, color: false, value: 4},
+                      {result: 'Two pairs', consecutive: 0, equal1: 2, equal2: 2, color: false, value: 3},
+                      {result: 'Pair', consecutive:0, equal1: 2, equal2: 0, color: false, value: 2},
+                      {result: 'High Card', consecutive:0, equal1: 0, equal2: 0, color: false, value: 1}]
                    
         this.getRules = () => {
             return this.rules
@@ -51,8 +51,10 @@ class Rules {
         this.getRule = (prop) => {
             return this.rules[prop]
         }
-        this.setWeight = (pos, weight) => {
-            this.rules[pos].weight = weight
+        this.setCardsWeight = (pos, eq1Weight, eq2Weight, weights) => {
+            this.rules[pos].equal1Weight = eq1Weight
+            this.rules[pos].equal2Weight = eq2Weight
+            this.rules[pos].cardsWeight = weights
         }
     }
 }
@@ -108,13 +110,11 @@ function dealHandOfPoker (pokerCards) {
             let deckOfPokerCards = pokerCards.getCards()
             do {
                 card = Math.floor(Math.random() * Math.floor(deckOfPokerCards.length))
-                if (hand.indexOf(deckOfPokerCards[card]) === -1) {
-                    /* add a new card to the player hand... */
-                    hand.push(deckOfPokerCards[card])
-                    /* ... and remove it from the deck */
-                    deckOfPokerCards.splice(card, 1)
-                    numCards ++
-                }
+                /* add a new card to the player hand... */
+                hand.push(deckOfPokerCards[card])
+                /* ... and remove it from the deck */
+                deckOfPokerCards.splice(card, 1)
+                numCards ++
             } while ((numCards<pokerCards.getHandCards()) || (deckOfPokerCards.lenght<1))
         },
 
@@ -123,7 +123,11 @@ function dealHandOfPoker (pokerCards) {
         },
 
         showHand: () => {
-            console.log(hand)
+            let cards = '';
+            for (var i=0; i<hand.length; i++) {
+                cards += ' ' + hand[i].keyV + hand[i].keyS
+            }
+            console.log(cards)
         }
     }
 }
@@ -138,39 +142,55 @@ function getScorePlayer(playerHand) {
     let hand = []
     let values = new Values()
     let rules = new Rules()
-    let sumEqualValues = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-    let weight = 0
+    let countEqualCards = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+    let sumEqualCards = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+    let cardsWeight = []
     let consecutive = 0
     let equal1 = 0
+    let equal1Weight = 0
     let equal2 = 0
+    let equal2Weight = 0
     let color = true
     let result = ''
     
+    //group cards with the same value and get cards' weight based on its values
     hand = playerHand.getHand()
     for (var i=0; i<hand.length; i++) {
-        sumEqualValues[values.getValue([hand[i].keyV])]++
-        weight += values.getValue([hand[i].keyV])
+        countEqualCards[values.getValue(hand[i].keyV)]++
+        sumEqualCards[values.getValue(hand[i].keyV)] += values.getValue(hand[i].keyV)
+        cardsWeight.push(values.getValue(hand[i].keyV))
         if ((i>0) && (hand[i-1].keyS !== hand[i].keyS)) {
             color = false
         } 
     }
-    //check consecutives
-    for (var i=0; i<sumEqualValues.length; i++) {
-        switch (sumEqualValues[i]) {
+    
+    //sort weights array in descending order
+    cardsWeight.sort(function(a, b){return b-a})
+    
+    //check consecutives & cards with the same value
+    for (var i=0; i<countEqualCards.length; i++) {
+        switch (countEqualCards[i]) {
             case 1:
-                consecutive = (i===0) ? 1 : ((sumEqualValues[i-1])===1) ? ++consecutive : 1
+                consecutive = (i===0) ? 1 : ((countEqualCards[i-1])===1) ? ++consecutive : 1
                 break
             case 2:
             case 3:
             case 4:
-                (equal1 === 0) ? equal1=sumEqualValues[i] : equal2=sumEqualValues[i]
+                if (equal1 === 0) {
+                    equal1 = countEqualCards[i] 
+                    equal1Weight = sumEqualCards[i] 
+                } else {
+                     equal2=countEqualCards[i]
+                     equal2Weight = sumEqualCards[i]
+                }
         }
     }
     
+    //get result
     for (var i=0; i<rules.getRules().length; i++) {
         if (((rules.getRule(i).consecutive === consecutive) && (rules.getRule(i).color === color)) ||
             ((rules.getRule(i).equal1 === equal1) && (rules.getRule(i).equal2 === equal2))) {
-            rules.setWeight(i, weight)   
+            rules.setCardsWeight(i, equal1Weight, equal2Weight, cardsWeight)   
             result=rules.getRule(i)
         }
     }
