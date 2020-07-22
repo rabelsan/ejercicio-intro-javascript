@@ -142,8 +142,8 @@ function getScorePlayer(playerHand) {
     let hand = []
     let values = new Values()
     let rules = new Rules()
-    let countEqualCards = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-    let sumEqualCards = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+    let countEqualCards = [] 
+    let sumEqualCards =  [] 
     let cardsWeight = []
     let consecutive = 0
     let equal1 = 0
@@ -154,6 +154,10 @@ function getScorePlayer(playerHand) {
     let result = ''
     
     //group cards with the same value and get cards' weight based on its values
+    for (var i=0; i<values.getValues().lenght; i++) {
+        countEqualCards[i] = 0
+        sumEqualCards [i] = 0
+    }
     hand = playerHand.getHand()
     for (var i=0; i<hand.length; i++) {
         countEqualCards[values.getValue(hand[i].keyV)]++
