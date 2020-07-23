@@ -1,2 +1,14 @@
 Entrada: Jugador 1: 9H 9S 4H KD 3C   Jugador 2: TC 6S 5H QS 7H
 Salida: Jugador 1 gana, Pair
+Entrada: Jugador 1: TH TC 4C 3C 8D   Jugador 2: 3H 9S 7H 8H 7C
+Salida: Jugador 1 gana, Pair
+Entrada: Jugador 1: QS 9H TS 3D 9D   Jugador 2: 6C AD AC TC 5C
+Salida: Jugador 2 gana, Pair
+Entrada: Jugador 1: 2S 5H 4C 5S KC   Jugador 2: 5D 6C 9C 8C 9H
+Salida: Jugador 2 gana, Pair
+Entrada: Jugador 1: 9H 6C 2D 7D AC   Jugador 2: 4S 7S KH JH AS
+Salida: Jugador 2 gana, High Card
+Entrada: Jugador 1: 5H 3H 2D 6H 2S   Jugador 2: JD 6C 9H 7C JH
+Salida: Jugador 2 gana, Pair
+Entrada: Jugador 1: TC 8S 4S 6C TH   Jugador 2: AS QH QS 5D QC
+Salida: Jugador 2 gana, Three of a kind
