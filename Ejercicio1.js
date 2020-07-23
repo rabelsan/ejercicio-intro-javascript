@@ -6,7 +6,7 @@
 * @param {string} romanNum numeral to convert
 */
 function convertRomanToDecimal(romanNum) {
-    var valueDec = { I: 1, V: 5, X: 10, L: 50, C: 100, D: 500, M: 1000 }
+    const valueDec = { I: 1, V: 5, X: 10, L: 50, C: 100, D: 500, M: 1000 }
     var digitPrev = ''
     var valor = 0
     var resultado = null
@@ -32,7 +32,7 @@ function convertRomanToDecimal(romanNum) {
 * @param {string} decNum Decimal numeral to convert
 */
 function convertDecimalToRoman(decNum) {
-    var valueRoman = { 1: 'I', 2: 'II', 3: 'III', 4: 'IV', 5: 'V', 6: 'VI', 7: 'VII', 8: 'VIII', 9: 'IX', 10: 'X', 20: 'XX', 30: 'XXX', 
+    const valueRoman = { 1: 'I', 2: 'II', 3: 'III', 4: 'IV', 5: 'V', 6: 'VI', 7: 'VII', 8: 'VIII', 9: 'IX', 10: 'X', 20: 'XX', 30: 'XXX', 
                        40: 'XL', 50: 'L', 60: 'LX', 70: 'LXX', 80: 'LXXX', 90: 'XC', 100: 'C', 200: 'CC', 300: 'CCC', 400: 'CD', 500: 'D', 
                        600: 'DC', 700: 'DCC', 800: 'DCCC', 900: 'CM', 1000: 'M', 2000: 'MM', 3000: 'MMM' }
     var module = 0
@@ -59,8 +59,8 @@ function convertDecimalToRoman(decNum) {
 * @param {string} num Roman numeral to convert
 */
 function validateRoman (num) {
-    var digitRoman = 'IVXLCDM'
-    var rules = ['IIII','VV', 'XXXX', 'LL', 'CCCC', 'DD', 'MMMM', 'IL', 'IC', 'ID', 'IM', 'XD', 'XM',
+    const digitRoman = 'IVXLCDM'
+    const rules = ['IIII','VV', 'XXXX', 'LL', 'CCCC', 'DD', 'MMMM', 'IL', 'IC', 'ID', 'IM', 'XD', 'XM',
                  'VX', 'VL', 'VC', 'VD', 'VM', 'LC', 'LD', 'LM', 'DM']
     var digitWrong = []
     var ruleWrong = []

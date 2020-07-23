@@ -66,7 +66,7 @@ class Rules {
 * @param {Object} object of class Values
 */
 function deckOfPokerCards (suits, values) {
-    let handCards = 5
+    const handCards = 5
     let cards = []
     return {
         generateDeckOfCards: () => { 
