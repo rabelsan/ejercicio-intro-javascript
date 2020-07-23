@@ -52,8 +52,7 @@ He intentado utilizar la nueva sintaxis de clases y el método factory (closures
 
 - saveFile(fileOut, data): Función para guardar en modo asíncrono el resultado de la partida en el fichero "partidas.txt"
 
-
-
+- **playGame()**: Es la función principal. Se encarga de crear la nueva baraja, repartir las cartas a cada jugador, obtener los resultados y, finalmente, comprobar quién ha ganado (o si ha habido empate), y finalmente, guardar el resultado de la partida en un fichero.
 
 
 
