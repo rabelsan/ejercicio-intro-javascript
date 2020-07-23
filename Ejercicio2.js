@@ -207,7 +207,7 @@ function getScorePlayer(playerHand) {
 * @param {string} file File name
 * @param {string} data Data to be saved
 */
-function saveFile(fileOut, data) {
+function saveFileAsync(fileOut, data) {
     let fs = require('fs');
 
     fs.appendFile(fileOut, data, (error) => {
@@ -217,6 +217,18 @@ function saveFile(fileOut, data) {
             console.log(`\n¡Partida guardada en fichero "${fileOut}"!\n`);
         }    
     });
+}
+
+/**
+* Create/append the content of a file in Synchronous mode (writeFile())
+* Otherwise, it returns 'undefined' if the reading operation returns errors.
+* @param {string} file File name
+* @param {string} data Data to be saved
+*/
+function saveFileSync(fileOut, data) {
+    let fs = require('fs');
+
+    fs.appendFileSync(fileOut, data);
 }
 
 /**
@@ -285,9 +297,14 @@ function playGame() {
             result += `Salida: Jugador 2 gana, ${scorePlayer2.result}\n`
     }
     
-    // save the result and exit
-    saveFile('partidas.txt', result)
-    return result
+    // save the result and exit (using both methods saveFileSync & saveFileAsync)
+    if (winner < 2)
+        saveFileSync('partidas.txt', result) //Synchronous mode
+    else {    
+        saveFileAsync('partidas.txt', result)  //Asyncrhonous mode
+    }
+
+        return result
 
 }
 

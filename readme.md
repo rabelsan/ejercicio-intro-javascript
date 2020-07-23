@@ -50,9 +50,11 @@ He intentado utilizar la nueva sintaxis de clases y el método factory (closures
 
 - getScorePlayer(playerHand): Se analiza el resultado de cada jugador en función a las reglas del juego y se guarda el resultado en función del valor de las cartas de cada jugador para, a continuación, poder comparar las jugadas 
 
-- saveFile(fileOut, data): Función para guardar en modo asíncrono el resultado de la partida en el fichero "partidas.txt"
+- saveFileAsync(fileOut, data): Función para guardar en modo asíncrono el resultado de la partida en el fichero "partidas.txt"
 
-- **playGame()**: Es la función principal. Se encarga de crear la nueva baraja, repartir las cartas a cada jugador, obtener los resultados y, finalmente, comprobar quién ha ganado (o si ha habido empate), y finalmente, guardar el resultado de la partida en un fichero.
+- saveFileSync(fileOut, data): Función para guardar en modo síncrono el resultado de la partida en el fichero "partidas.txt"
+
+- **playGame()**: Es la función principal. Se encarga de crear la nueva baraja, repartir las cartas a cada jugador, obtener los resultados y, finalmente, comprobar quién ha ganado (o si ha habido empate), y finalmente, guardar el resultado de la partida en un fichero (utilizando tanto la versión síncrona como asíncorna).
 
 
 
