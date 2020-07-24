@@ -1,24 +1,22 @@
-Entrada: Jugador 1: 6C QC KS 3D 4S   Jugador 2: 4H JC KD QS JS
-Salida: Jugador 2 gana, Pair
-Entrada: Jugador 1: 3H 5H 9D 9C 5D   Jugador 2: 4H TD TC 7C 8D
-Salida: Jugador 1 gana, Two pairs
-Entrada: Jugador 1: QD QC 3H 4C 8D   Jugador 2: KH 6C TD QH 7S
+Entrada: Jugador 1: 2D 5S TS TC 8S   Jugador 2: JD JH QD 4C JS
+Salida: Jugador 2 gana, Three of a kind
+Entrada: Jugador 1: 2S KC QC 8S JD   Jugador 2: 9C 7C 2C AC 4C
+Salida: Jugador 2 gana, High Card
+Entrada:  Jugador 1: QD 9D 4H JS 9S  Jugador 2: JC 3D 7C AS 7S  Jugador 3: 9H 8C TS 4C 2C
 Salida: Jugador 1 gana, Pair
-Entrada:  Jugador 1: 4S QC 7S JS AC  Jugador 2: 3D 7D 6H 2C 8S  Jugador 3: 4H TS 6C 5D 8H
-Salida: Jugador 1 gana (carta más alta), High Card
-Entrada:  Jugador 1: JC 4S 9D 2S 8D  Jugador 2: TD 7H 7C 9S QH  Jugador 3: 4H 2D 7S TS 5C  Jugador 4: 3C 9C JH AC KH  Jugador 5: 3H AH 6D 5D 9H  Jugador 6: KC 2H 8S 3S 3D
-Salida: Jugador 2 gana, Pair
-Entrada:  Jugador 1: 6D JD 2C AH JH  Jugador 2: KD 9C 7C 3C 8H  Jugador 3: 2H 5D QC 4C 6H  Jugador 4: 2D 5C AS 4H 7D  Jugador 5: KH 8C AD 3D QS  Jugador 6: TH QH 5H AC 4S  Jugador 7: 9S 5S JS TC TD
-Salida: Jugador 1 gana, Pair
-Entrada:  Jugador 1: QC QD 8D KH 3D  Jugador 2: AC JC 4D AS 6S  Jugador 3: JD JS 2D 3C KS  Jugador 4: 5S KD 8C AD TC  Jugador 5: 9H TS AH 7D 9D  Jugador 6: TH 5D 4C 9S 8H  Jugador 7: 6H 5H JH QH 6C  Jugador 8: 3S 2C 7S 6D 7C
-Salida: Jugador 2 gana, Pair
-Entrada:  Jugador 1: 5C 4D 8D 2D 6H  Jugador 2: 7C 4C 7S TC JD  Jugador 3: JS 3H 2S 3C QS  Jugador 4: KC 2H QH AD KS  Jugador 5: JH 9C KH 2C 9D  Jugador 6: AS 8S 4S TH 6C  Jugador 7: 8C 4H 9H 7D TD  Jugador 8: QD 6D 3S AH 8H  Jugador 9: 6S 5D KD 3D JC  Jugador 10: TS AC 5H 9S QC
+Entrada:  Jugador 1: QH 5C AS 4D 6C  Jugador 2: JD 7C 5S 3H 8C  Jugador 3: 7D 3S 5D 7H 4S  Jugador 4: JC 2S KC KS QS
 Salida: Jugador 4 gana, Pair
-Entrada:  Jugador 1: KH 3S 6C 6H 4S  Jugador 2: QC TH 6S 4D 2D
-Salida: Jugador 1 gana, Pair
-Entrada:  Jugador 1: TS JS 3H JH QC  Jugador 2: 9S 3D 7D 8S TC  Jugador 3: 4C 5D 6H AD KD  Jugador 4: 3S TD 6C 4H KC
-Salida: Jugador 1 gana, Pair
-Entrada:  Jugador 1: TH 6S JH 3D 2S  Jugador 2: KS 5D 5H 3C 3S  Jugador 3: 8S 5C AH 7H 7C  Jugador 4: TC 4S 8H TS 4D  Jugador 5: 6C JS JC TD 3H  Jugador 6: 9C 9H 7S 9D KH  Jugador 7: 4H 4C QD KD AC  Jugador 8: QH 6D 6H 8D QC  Jugador 9: 2H KC 5S 8C QS
-Salida: Jugador 6 gana, Three of a kind
-Entrada:  Jugador 1: 9D TH KC JH QS  Jugador 2: 3H AD QC AS 5D  Jugador 3: 5C 5S KD 3D 5H  Jugador 4: KS 7C 9S TS KH  Jugador 5: 4D 8C 9C 2S 8H
+Entrada:  Jugador 1: 4D 8D KD 9S 6C  Jugador 2: TD AS 5C 4C 3S  Jugador 3: AC 6H 9H 5H 2D  Jugador 4: AD 8S 2C TC JD  Jugador 5: 5S JS TS KH AH  Jugador 6: 8H 2S JH QH QC  Jugador 7: 9D TH 4H 6S 4S
+Salida: Jugador 6 gana, Pair
+Entrada:  Jugador 1: 5C 3H QC 9D 6C  Jugador 2: JH 4H TC 5H AH  Jugador 3: 7H 3S QH 9C TD  Jugador 4: QD 9S 5S 6S AC  Jugador 5: 2H 7D 4D AS 2D  Jugador 6: JS TS 5D 9H 4C  Jugador 7: QS KD 7C JC 7S  Jugador 8: 8C 8S 6H KH 2S
+Salida: Jugador 8 gana, Pair
+Entrada:  Jugador 1: 6H JD 3C 4H KS  Jugador 2: 7S 4C 8H 3D TH  Jugador 3: QD 5C 6C 8S TD  Jugador 4: TC 9D 6S 7D 2C  Jugador 5: AH 5H 8C 4S JS  Jugador 6: 7C AD 5S 3S KH  Jugador 7: 2S 9S AC JC 9C  Jugador 8: QC 3H TS 6D AS  Jugador 9: KC JH 2H 2D 8D
+Salida: Jugador 7 gana, Pair
+Entrada:  Jugador 1: 9H 2S 8C QS 4H  Jugador 2: 7C 8D 7H JS 5C
+Salida: Jugador 2 gana, Pair
+Entrada:  Jugador 1: 8S 5D AC TH 2D  Jugador 2: 6C 8H 3C JS 4D  Jugador 3: TC QH QD QS KD  Jugador 4: 2S 3H 6S 6D AS  Jugador 5: 3S AH 8D 5S 4S
 Salida: Jugador 3 gana, Three of a kind
+Entrada:  Jugador 1: 9C 7C 2D TC AD  Jugador 2: 7D 9H 8H 3C KD  Jugador 3: 2S KS 2C QH KH  Jugador 4: QS 2H JC 3D 6H  Jugador 5: 4C 7H TD 9S 5C  Jugador 6: 6C TH 5S AH 5D
+Salida: Jugador 3 gana, Two pairs
+Entrada:  Jugador 1: 2D QH TD 2S 3S  Jugador 2: 5D KC 8H 6C 4C  Jugador 3: 3D QS 3H 4H TS  Jugador 4: KH 7S 6S 9C 9D  Jugador 5: 2C 9H 7D 3C 8S  Jugador 6: 5C AD 8D KS TH  Jugador 7: QC QD JC JH 4S  Jugador 8: AC 5S JS 7H 8C  Jugador 9: 6H 7C 2H AH 6D  Jugador 10: 9S 5H TC 4D JD
+Salida: Jugador 7 gana, Two pairs

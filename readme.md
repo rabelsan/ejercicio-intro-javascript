@@ -59,8 +59,8 @@ He intentado utilizar la nueva sintaxis de clases y el método factory (closures
 
 ## Ejercicio 2b Partida Poker (multijugador)
 
-- **playGame(players=2)**: En esta versión admite un parámetro para el número de jugadores. El valor por defecto si no se indica nada es 2 jugadores pero pueden jugar a de 2 a 10 jugadores en la misma partida.
-
+- **playGame(players=2)**: En esta versión admite un parámetro para el número de jugadores. El valor por defecto si no se indica nada es 2 jugadores pero pueden jugar a de 2 a 10 jugadores en la misma partida. Sólo para seguir practicando con el lenguaje porque es la primera vez que hago un programa en JavaScript.
+ 
 
 Ramón Beltrán Sánchez
 
