@@ -57,9 +57,9 @@ He intentado utilizar la nueva sintaxis de clases y el método factory (closures
 - **playGame()**: Es la función principal. Se encarga de crear la nueva baraja, repartir las cartas a cada jugador, obtener los resultados y, finalmente, comprobar quién ha ganado (o si ha habido empate), y finalmente, guardar el resultado de la partida en un fichero (utilizando tanto la versión síncrona como asíncorna).
 
 
-## Ejercicio 2b Partida Poker (de 2 a 4 jugadores)
+## Ejercicio 2b Partida Poker (multijugador)
 
-- **playGame(players=2)**: En esta versión admite un parámetro para el número de jugadores. El valor por defecto si no se indica nada es 2 jugadores pero pueden jugar a de 2 a 4 jugadores en la misma partida.
+- **playGame(players=2)**: En esta versión admite un parámetro para el número de jugadores. El valor por defecto si no se indica nada es 2 jugadores pero pueden jugar a de 2 a 10 jugadores en la misma partida.
 
 
 Ramón Beltrán Sánchez

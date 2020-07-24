@@ -237,14 +237,16 @@ function saveFileSync(fileOut, data) {
 */ 
 function playGame(numPlayers=2) {
 
+    const minPlayers = 2
+    const maxPlayers = 10
     let result = ''
     let suits = new Suits()
     //suits.getSuits()
     let values = new Values()
     //values.getValues()
     
-    if (numPlayers<2 || numPlayers>4) {
-        result = 'Error: el número de jugadores debe ser 2, 3 ó 4.\n'
+    if (numPlayers<minPlayers || numPlayers>maxPlayers) {
+        result = `Error: el número de jugadores debe ir entre ${minPlayers} y ${maxPlayers}.\n`
     } else { 
         let players = new Array(numPlayers)
         let scorePlayers = new Array(numPlayers)
@@ -274,7 +276,7 @@ function playGame(numPlayers=2) {
         
         result = 'Entrada:'
         for (var i=0; i<players.length; i++) {
-            result += ` Jugador ${i+1}: ${players[i].getHandFormatted()}`
+            result += `  Jugador ${i+1}:${players[i].getHandFormatted()}`
         }
         result += '\n'
 
@@ -330,7 +332,7 @@ function playGame(numPlayers=2) {
                         }
                     }
                     cont++
-                } while ((cont<pokerCards.getHandCards()) && winners2.length>1)
+                } while ((cont<pokerCards.getHandCards()) && (winners2.length>1))
                 if (winners2.length == 1) {
                     let i = 0
                     while (scorePlayers[i] != winners2[0]) {
@@ -344,7 +346,11 @@ function playGame(numPlayers=2) {
                         while (scorePlayers[j] != winners2[i]) {
                             j++
                         }
-                        result += (i == (winners2.length-1)) ? ` y ${j+1}` : `${j+1}, ` 
+                        if (i == 0) {
+                            result += `${j+1}`  
+                        } else {    
+                            result += (i == (winners2.length-1)) ? ` y ${j+1}.\n` : `, ${j+1}` 
+                        }    
                     }
                 } 
             }    
@@ -371,3 +377,10 @@ console.log(playGame(3))
 // 4 players
 console.log(playGame(4))
 
+//.. max 10 players
+console.log(playGame(5))
+console.log(playGame(6))
+console.log(playGame(7))
+console.log(playGame(8))
+console.log(playGame(9))
+console.log(playGame(10))
