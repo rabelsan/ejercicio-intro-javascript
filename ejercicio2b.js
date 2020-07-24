@@ -102,21 +102,20 @@ function deckOfPokerCards (suits, values) {
 */
 function dealHandOfPoker (pokerCards) {
     let hand = []
+    let card = 0
+    let deckOfPokerCards = pokerCards.getCards()
+        
 
     return {
-        dealHand: () => {
-            let card = 0
-            let numCards = 0
-            let deckOfPokerCards = pokerCards.getCards()
-            do {
+        dealCard: () => {
+             if (deckOfPokerCards.length>0) {
                 card = Math.floor(Math.random() * Math.floor(deckOfPokerCards.length))
                 // add a new card to the player hand... 
                 hand.push(deckOfPokerCards[card])
                 // ... and remove it from the deck 
                 deckOfPokerCards.splice(card, 1)
-                numCards ++
-            } while ((numCards<pokerCards.getHandCards()) || (deckOfPokerCards.lenght<1))
-        },
+            }    
+        }, 
 
         getCard: (pos) => {
             return hand[pos].keyV + hand[pos].keyS
@@ -234,80 +233,141 @@ function saveFileSync(fileOut, data) {
 
 /**
 * Deals poker cards randomly for two players and, based on the dealed cards, decides who is the winner.
+* @param {number} number of players
 */ 
-function playGame() {
+function playGame(numPlayers=2) {
 
-    let scorePlayer1 = []
-    let scorePlayer2 = []
-    let winner = 0
     let result = ''
     let suits = new Suits()
     //suits.getSuits()
     let values = new Values()
     //values.getValues()
-
-    /* generate a new deck of pocker cards */
-    const pokerCards = deckOfPokerCards(suits, values)
-    pokerCards.generateDeckOfCards()
-    //pokerCards.showDeck()
-
-    /* deal cards to players */
-    const player1 = dealHandOfPoker(pokerCards)
-    player1.dealHand()
     
-    const player2 = dealHandOfPoker(pokerCards)
-    player2.dealHand()
-    
-    //get the results
-    scorePlayer1 = getScorePlayer(player1)
-    scorePlayer2 = getScorePlayer(player2)
+    if (numPlayers<2 || numPlayers>4) {
+        result = 'Error: el número de jugadores debe ser 2, 3 ó 4.\n'
+    } else { 
+        let players = new Array(numPlayers)
+        let scorePlayers = new Array(numPlayers)
+        /* generate a new deck of pocker cards */
+        const pokerCards = deckOfPokerCards(suits, values)
+        pokerCards.generateDeckOfCards()
+        //pokerCards.showDeck()
+        
+        /* deal cards to players */
+        for (var i=0; i<players.length; i++) {
+            players[i] = dealHandOfPoker(pokerCards)
+        }
 
-    result = `Entrada: Jugador 1:${player1.getHandFormatted()}   Jugador 2:${player2.getHandFormatted()}\n`
-    
-    //check the winner
-    if (scorePlayer1.value > scorePlayer2.value) {
-        winner = 1
-    } else if (scorePlayer1.value < scorePlayer2.value) {
-        winner = 2
-    } else {
-        if ((scorePlayer1.equal1Weight+scorePlayer1.equal2Weight) > (scorePlayer2.equal1Weight+scorePlayer2.equal2Weight)) {
-            winner = 1
-        } else if ((scorePlayer1.equal1Weight+scorePlayer1.equal2Weight) < (scorePlayer2.equal1Weight+scorePlayer2.equal2Weight)) {
-            winner = 2
+        for (var i=0; i<pokerCards.getHandCards(); i++) {
+            for (var j=0; j<players.length; j++) {
+                players[j].dealCard()
+            }
+        }        
+        
+        
+        //get the results
+        let maxScore = 0
+        for (i=0; i<scorePlayers.length; i++) {
+            scorePlayers[i] = getScorePlayer(players[i])
+            maxScore = (scorePlayers[i].value > maxScore) ? scorePlayers[i].value : maxScore
+        }
+        
+        result = 'Entrada:'
+        for (var i=0; i<players.length; i++) {
+            result += ` Jugador ${i+1}: ${players[i].getHandFormatted()}`
+        }
+        result += '\n'
+
+        //check the winner
+        let winners = []
+        let winners2 = []
+        let cont = 0
+        for (var i=0; i<scorePlayers.length; i++) {
+            if (scorePlayers[i].value == maxScore) {
+                winners.push(scorePlayers[i])
+            }
+        }
+        if (winners.length == 1) {
+            let i = 0
+            while (scorePlayers[i] !== winners[0]) {
+                i++
+            } 
+            result += `Salida: Jugador ${i+1} gana, ${scorePlayers[i].result}\n`
         } else {
-            let cont = 0
+            winners2 = []
+            cont = 0
             do {
-                if (scorePlayer1.cardsWeight[cont] > scorePlayer2.cardsWeight[cont]) {
-                    winner = 1
-                } else if (scorePlayer1.cardsWeight[cont] < scorePlayer2.cardsWeight[cont]) {
-                    winner = 2
+                maxScore = 0
+                for (var i=0; i<winners.length; i++) {
+                    maxScore = ((winners[i].equal1Weight+winners[i].equal2Weight) > maxScore) ?  winners[i].equal1Weight+winners[i].equal2Weight : maxScore
+                }
+                winners2 = []
+                for (var i=0; i<winners.length; i++) {
+                    if ((winners[i].equal1Weight+winners[i].equal2Weight) == maxScore) {
+                        winners2.push(winners[i])
+                    }
                 }
                 cont++
-            } while ((winner == 0) || (cont < pokerCards.numCards))
+            } while ((cont<pokerCards.getHandCards()) && winners2.length>1)
+            if (winners2.length == 1) {
+                let i = 0
+                while (scorePlayers[i] != winners2[0]) {
+                    i++
+                } 
+                result += `Salida: Jugador ${i+1} gana, ${scorePlayers[i].result}\n`    
+            } else {
+                winners2 = []
+                cont = 0
+                do {
+                    maxScore = 0
+                    for (var i=0; i<winners.length; i++) {
+                        maxScore = (winners[i].cardsWeight[cont] > maxScore) ? winners[i].cardsWeight[cont] : maxScore
+                    }
+                    winners2 = []
+                    for (var i=0; i<winners.length; i++) {
+                        if (winners[i].cardsWeight[cont] == maxScore) {
+                            winners2.push(winners[i])
+                        }
+                    }
+                    cont++
+                } while ((cont<pokerCards.getHandCards()) && winners2.length>1)
+                if (winners2.length == 1) {
+                    let i = 0
+                    while (scorePlayers[i] != winners2[0]) {
+                        i++
+                    } 
+                    result += `Salida: Jugador ${i+1} gana (carta más alta), ${scorePlayers[i].result}\n`    
+                } else {
+                    result += 'Empate: Jugadores '
+                    for (var i=0; i<winners2.length; i++) {
+                        let j = 0
+                        while (scorePlayers[j] != winners2[i]) {
+                            j++
+                        }
+                        result += (i == (winners2.length-1)) ? ` y ${j+1}` : `${j+1}, ` 
+                    }
+                } 
+            }    
+        }
+    
+        // save the result and exit (using both methods saveFileSync & saveFileAsync)
+        if (winners.length > 1) {
+            saveFileSync('partidas.txt', result) //Synchronous mode
+        } else {    
+            saveFileAsync('partidas.txt', result)  //Asyncrhonous mode
         }
     }
-
-    switch (winner) {
-        case 0:
-            result += `Salida: Empate\n`
-            break
-        case 1:
-            result += `Salida: Jugador 1 gana, ${scorePlayer1.result}\n`
-            break
-        case 2:
-            result += `Salida: Jugador 2 gana, ${scorePlayer2.result}\n`
-    }
     
-    // save the result and exit (using both methods saveFileSync & saveFileAsync)
-    if (winner < 2)
-        saveFileSync('partidas.txt', result) //Synchronous mode
-    else {    
-        saveFileAsync('partidas.txt', result)  //Asyncrhonous mode
-    }
-
-        return result
-
+    return result
 }
 
 //play game
+// 2 players
 console.log(playGame())
+
+// 3 players
+console.log(playGame(3))
+
+// 4 players
+console.log(playGame(4))
+

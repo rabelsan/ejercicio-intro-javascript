@@ -32,7 +32,7 @@ Se han definido las siguientes funciones:
 - saveFile(fileOut, data): Guarda los datos convertidos en el fichero de salida definido en el primer parámatros
 
 
-## Ejercicio 2 Partida Poker
+## Ejercicio 2 Partida Poker (2 jugadores)
 
 En este ejercicio se han definidos las clases necesarias para poder formar una baraja, repartir cartas, obtener los resultados de cada jugador y comprobar quién ha ganado. Una vez hecho esto, las partidas se van añadiendo al fichero de salida "partidas.txt".
 
@@ -56,6 +56,10 @@ He intentado utilizar la nueva sintaxis de clases y el método factory (closures
 
 - **playGame()**: Es la función principal. Se encarga de crear la nueva baraja, repartir las cartas a cada jugador, obtener los resultados y, finalmente, comprobar quién ha ganado (o si ha habido empate), y finalmente, guardar el resultado de la partida en un fichero (utilizando tanto la versión síncrona como asíncorna).
 
+
+## Ejercicio 2b Partida Poker (de 2 a 4 jugadores)
+
+- **playGame(players=2)**: En esta versión admite un parámetro para el número de jugadores. El valor por defecto si no se indica nada es 2 jugadores pero pueden jugar a de 2 a 4 jugadores en la misma partida.
 
 
 Ramón Beltrán Sánchez
